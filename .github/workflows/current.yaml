@@ -1,5 +1,5 @@
 name: DevSecOps Workflow for MyVodafoneApp
-on: [push]
+#on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -101,6 +101,24 @@ jobs:
           name: trufflehog-Output-file
           path: trufflehog-output.json
         if: always()
+
+  sast-njsscan:
+    runs-on: ubuntu-latest
+    name: njsscan code scanning
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v2
+    - name: nodejsscan scan
+      id: njsscan
+      uses: ajinabraham/njsscan-action@master
+      with:
+        args: '. --sarif --output results.sarif || true'
+    - name: Upload njsscan report
+      uses: actions/upload-artifact@v2
+      with:
+        name: njsscan
+        path: results.sarif
+      if: always() 
 
   deployment:
     runs-on: ubuntu-latest

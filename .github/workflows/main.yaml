@@ -1,24 +1,28 @@
-name: njsscan sarif
+name: bandit scan
 on:
   push:
     branches: [ master, main ]
   pull_request:
     branches: [ master, main ]
+
 jobs:
-  njsscan:
+  sast-bandit:
     runs-on: ubuntu-latest
-    name: njsscan code scanning
+    needs: [oast-retire, oast-safety, oast-npmscan]
     steps:
-    - name: Checkout the code
-      uses: actions/checkout@v2
-    - name: nodejsscan scan
-      id: njsscan
-      uses: ajinabraham/njsscan-action@master
-      with:
-        args: '. --sarif --output results.sarif || true'
-    - name: Upload njsscan report
-      uses: actions/upload-artifact@v2
-      with:
-        name: njsscan
-        path: results.sarif
-      if: always() 
+      - name: Clone the Repository
+        uses: actions/checkout@v2
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: run bandit scan
+        run: bandit -r . -f json -o bandit-output.json
+        continue-on-error: true
+      
+      - name: Upload the Bandit Output file
+        uses: actions/upload-artifact@v2
+        with:
+          name: bandit-Output-file
+          path: bandit-output.json
+        if: always()
