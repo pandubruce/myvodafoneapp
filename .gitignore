@@ -64,4 +64,8 @@ db.sqlite3
 
 # Uploaded files
  uploads/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8f7239db2f8131139e31c0031be99ed4657a8abc
 node_modules
