@@ -34,7 +34,7 @@ jobs:
           retire --outputformat json --outputpath retire-output.json
         continue-on-error: true
 
-      - name: Upload the Retire.JS Output file
+      - name: Upload the Retire.JS Output files
         uses: actions/upload-artifact@v2
         with:
           name: RetireJS-Output-File
