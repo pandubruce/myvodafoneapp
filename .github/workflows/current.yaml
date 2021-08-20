@@ -118,7 +118,27 @@ jobs:
       with:
         name: njsscan
         path: results.sarif
-      if: always() 
+      if: always()
+
+  sast-bandit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the Repository
+        uses: actions/checkout@v2
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: run bandit scan
+        run: bandit -r . -f json -o bandit-output.json
+        continue-on-error: true
+      
+      - name: Upload the Bandit Output file
+        uses: actions/upload-artifact@v2
+        with:
+          name: bandit-Output-file
+          path: bandit-output.json
+        if: always() 
 
   deployment:
     runs-on: ubuntu-latest
