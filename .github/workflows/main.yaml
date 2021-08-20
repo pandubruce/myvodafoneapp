@@ -91,10 +91,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install trufflehog
-        run: pip install trufflehog
+        run: pip install trufflehog3
 
       - name: run trufflehog scan
-        run: trufflehog --json . | tee trufflehog-output.json
+        run: trufflehog3 --no-history --format json --output trufflehog-output.json
         continue-on-error: true
       
       - name: Upload the Safety Output file
