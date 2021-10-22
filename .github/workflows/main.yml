@@ -108,4 +108,4 @@ jobs:
     steps:
       - run: |
           echo "deployment Job is going on"
-          sleep 20
+          sleep 30
