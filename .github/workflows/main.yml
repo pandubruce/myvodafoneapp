@@ -1,5 +1,4 @@
-name: DevSecOps Workflow for MyVodafoneApp
-on: [push]
+name: DevSecOps Workflow for MyExampleApp
 jobs:
   build:
     runs-on: ubuntu-latest
